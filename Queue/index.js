@@ -40,7 +40,7 @@ router.route('/receive-work/')
  				var queue = 'work';
 
 	    		//Our message must be a string
-	    		req.body[0].work.foreach(function (workItem) {
+	    		req.body[0].work.forEach(function (workItem) {
 	    			ch.assertQueue(queue, {durable: true});
 		    		ch.sendToQueue(queue, new Buffer(workItem), {persistent: true});
 		    		console.log(" [x] Sent '%s'", workItem);
