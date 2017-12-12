@@ -31,7 +31,7 @@ router.route('/receive-work/')
         var conn = DB.connectToDB();
         console.log("connected to DB");
         console.log(req.body);
-        DB.insertPreData(conn, JSON.stringify(req.body)).then(function(result) {
+        DB.insertPreData(conn, req.body).then(function(result) {
         	console.log("inside of interPreData");
         	conn.end();
         	var open = requre("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
