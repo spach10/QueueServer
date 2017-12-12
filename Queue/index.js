@@ -49,7 +49,7 @@ router.route('/receive-work/')
 				res.end('Insert failed: ' + error);
 		});
         res.end('Data Inserted. ID=' + result.insertId);
-    }
+    });
 
 router.route('/data/checkid/')
 
