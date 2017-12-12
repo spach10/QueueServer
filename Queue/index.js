@@ -38,11 +38,13 @@ router.route('/receive-work/')
  				return conn.createChannel();
  			}).then(function(ch) {
  				var queue = 'work';
+
 	    		//Our message must be a string
-	    		var msg = result.insertId.toString();
-	    		ch.assertQueue(queue, {durable: true});
-	    		ch.sendToQueue(queue, new Buffer(msg), {persistent: true});
-	    		console.log(" [x] Sent '%s'", msg);
+	    		req.body[0].work.foreach(function (workItem) {
+	    			ch.assertQueue(queue, {durable: true});
+		    		ch.sendToQueue(queue, new Buffer(workItem), {persistent: true});
+		    		console.log(" [x] Sent '%s'", workItem);
+	    		});
  			});
 	 	}).catch(function(error) {
 				dbConn.end();
