@@ -1,5 +1,5 @@
 var amqp = require('amqplib/callback_api');
-var DBFunctions = require('./DBFunctions.js');
+var DBFunctions = require('../DBFunctions.js');
 var PythonShell = require('python-shell');
 require('dotenv').config();
 var DB = new DBFunctions();
