@@ -19,7 +19,7 @@ app.use(bodyParser.json({limit: '5mb'}));
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-router.route('/data/receive-work/')
+router.route('/receive-work/')
 
     // create a thing (accessed at POST http://localhost:8080/api/thing/create)
     .post(function(req, res) {
