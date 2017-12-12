@@ -26,7 +26,8 @@ var DBFunctions = function(){
 		console.log(data)
 		return new bpromise(function(resolve, reject){
 			var query = conn.query("INSERT INTO work_items ('work_item_id', 'work', 'domain') VALUES (null, '" + data.work + "', '"+data.domain+"');" , function (error, results) {
-				if(error){
+console.log("Error: " + error + "     Result: " + result);			
+	if(error){
 					reject(error);
 				}else{
 					resolve(results);
