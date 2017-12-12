@@ -32,6 +32,7 @@ router.route('/receive-work/')
         	conn.end();
         	var open = requre("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
 	 		open.then(function(conn) {
+	 			console.log("connection successful");
  				return conn.createChannel();
  			}).then(function(ch) {
  				var queue = 'work';
