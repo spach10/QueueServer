@@ -31,7 +31,7 @@ router.route('/receive-work/')
         DB.insertPreData(dbConn, req.body).then(function(result) {
         	dbConn.end();
         	console.log("Close db connection successful");
-        	var open = requre("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
+        	var open = require("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
         	console.log("After open");
 	 		open.then(function(conn) {
 	 			console.log("RabbitMQ connection successful");
