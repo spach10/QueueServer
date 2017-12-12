@@ -14,6 +14,7 @@ var DBFunctions = function(){
 		});
 		console.log("1 line before connection.connect()");
 		connection.connect();
+		console.log("connection successful");
 		return connection;
 	}
 
