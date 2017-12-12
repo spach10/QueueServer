@@ -25,7 +25,7 @@ var DBFunctions = function(){
 	this.insertPreData = function(conn, data){
 		console.log(data)
 		return new bpromise(function(resolve, reject){
-			var query = conn.query("INSERT INTO work_items (`work_item_id`, `work`, `domain`) VALUES (null, '" + JSON.stringify(data[0].work) + "', '"+ JSON.stringify(data[1].domain) +"');" , function (error, results) {
+			var query = conn.query("INSERT INTO work_items (`work_item_id`, `work`, `domain`) VALUES (null, '" + JSON.stringify(data[0]) + "', '"+ JSON.stringify(data[1].domain) +"');" , function (error, results) {
 console.log("Error: " + error + "     Result: " + results);			
 	if(error){
 					reject(error);
