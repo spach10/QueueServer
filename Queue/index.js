@@ -27,12 +27,8 @@ router.route('/receive-work/')
     		return res.sendStatus(400);
 
         //TODO: Connect to mysql db and insert data then send message to rabbitMQ queue
-    	console.log("before db");
         var conn = DB.connectToDB();
-        console.log("connected to DB");
-        console.log(req.body);
         DB.insertPreData(conn, req.body).then(function(result) {
-        	console.log("inside of interPreData");
         	conn.end();
         	var open = requre("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
 	 		open.then(function(conn) {
@@ -45,7 +41,7 @@ router.route('/receive-work/')
 	    		ch.sendToQueue(queue, new Buffer(msg), {persistent: true});
 	    		console.log(" [x] Sent '%s'", msg);
  			});
-	 	}).catch(function(error){
+	 	}).catch(function(error) {
 				conn.end();
 				res.end('Insert failed: ' + error);
 		});
