@@ -1,6 +1,6 @@
 
 var express = require('express');
-var DBFunctions = require('../DBFunctions.js');
+var DBFunctions = require('./DBFunctions.js');
 // var amqp = require('amqplib/callback_api');
 require('dotenv').config();
 

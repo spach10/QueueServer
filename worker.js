@@ -1,5 +1,5 @@
 
-var DBFunctions = require('../DBFunctions.js');
+var DBFunctions = require('./DBFunctions.js');
 require('dotenv').config();
 var DB = new DBFunctions();
 
