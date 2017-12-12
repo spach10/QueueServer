@@ -30,6 +30,7 @@ router.route('/receive-work/')
     	console.log("before db");
         var conn = DB.connectToDB();
         console.log("connected to DB");
+        console.log(req.body);
         DB.insertPreData(conn, JSON.stringify(req.body)).then(function(result) {
         	console.log("inside of interPreData");
         	conn.end();
