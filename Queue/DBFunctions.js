@@ -5,13 +5,14 @@ var DBFunctions = function(){
 	var bpromise = require('bluebird');
 
 	this.connectToDB = function(){
+		console.log("inside db connection");
 		var connection = mysql.createConnection({
   			host     : process.env.host,
   			user     : process.env.user,
   			password : process.env.password,
   			database : 'work_queue'
 		});
-
+		console.log("1 line before connection.connect()");
 		connection.connect();
 		return connection;
 	}

@@ -26,8 +26,11 @@ router.route('/receive-work/')
     	if (!req.body) return res.sendStatus(400)
 
         //TODO: Connect to mysql db and insert data then send message to rabbitMQ queue
+    	console.log("before db");
         var conn = DB.connectToDB();
+        console.log("connected to DB");
         DB.insertPreData(conn, JSON.stringify(req.body)).then(function(result){
+        	console.log("inside of interPreData");
         	conn.end();
         	amqp.connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host , function(err, amqpconn) {
  			amqpconn.createChannel(function(err, ch) {
