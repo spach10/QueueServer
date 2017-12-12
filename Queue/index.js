@@ -1,7 +1,7 @@
 
 var express = require('express');
 var DBFunctions = require('./DBFunctions.js');
-var amqp = require('amqplib/callback_api');
+// var amqp = require('amqplib/callback_api');
 require('dotenv').config();
 
 var DB = new DBFunctions();
@@ -23,33 +23,33 @@ router.route('/receive-work/')
 
     // create a thing (accessed at POST http://localhost:8080/api/thing/create)
     .post(function(req, res) {
-    	if (!req.body) return res.sendStatus(400)
+    	if (!req.body) 
+    		return res.sendStatus(400);
 
         //TODO: Connect to mysql db and insert data then send message to rabbitMQ queue
     	console.log("before db");
         var conn = DB.connectToDB();
         console.log("connected to DB");
-        DB.insertPreData(conn, JSON.stringify(req.body)).then(function(result){
+        DB.insertPreData(conn, JSON.stringify(req.body)).then(function(result) {
         	console.log("inside of interPreData");
         	conn.end();
-        	amqp.connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host , function(err, amqpconn) {
- 			amqpconn.createChannel(function(err, ch) {
-    		var queue = 'work';
-    		//Our message must be a string
-    		var msg = result.insertId.toString();
-    		ch.assertQueue(queue, {durable: true});
-    		ch.sendToQueue(queue, new Buffer(msg), {persistent: true});
-    		console.log(" [x] Sent '%s'", msg);
- 		});
-  		setTimeout(function() { amqpconn.close(); }, 500);
-		});
-        	res.end('Data Inserted. ID=' + result.insertId);
-        }).catch(function(error){
+        	var open = requre("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
+	 		open.then(function(conn) {
+ 				return conn.createChannel();
+ 			}).then(function(ch) {
+ 				var queue = 'work';
+	    		//Our message must be a string
+	    		var msg = result.insertId.toString();
+	    		ch.assertQueue(queue, {durable: true});
+	    		ch.sendToQueue(queue, new Buffer(msg), {persistent: true});
+	    		console.log(" [x] Sent '%s'", msg);
+ 			});
+	 	}).catch(function(error){
 				conn.end();
 				res.end('Insert failed: ' + error);
 		});
-
-    });
+        res.end('Data Inserted. ID=' + result.insertId);
+    }
 
 router.route('/data/checkid/')
 
