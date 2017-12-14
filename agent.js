@@ -11,7 +11,12 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(bodyParser.json({limit: '5mb'}));
 
-app.post
+app.post('10.61.133.173:8081/api/',function(req,res){
+    var user_name=req.body.user;
+    var password=req.body.password;
+    console.log("User name = "+user_name+", password is "+password);
+    res.end("yes");
+});
 
 // ROUTES FOR OUR API
 // =============================================================================

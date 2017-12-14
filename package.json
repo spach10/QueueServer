@@ -1,0 +1,27 @@
+{
+  "name": "queueserver",
+  "version": "1.0.0",
+  "description": "## Agent API",
+  "main": "DBFunctions.js",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0",
+    "shelljs": "^0.7.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spach10/QueueServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spach10/QueueServer/issues"
+  },
+  "homepage": "https://github.com/spach10/QueueServer#readme"
+}
