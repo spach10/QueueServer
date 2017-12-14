@@ -15,9 +15,9 @@ var DBFunctions = function() {
 		return connection;
 	}
 
-	this.disconnectDB = function(connection){
+	this.disconnectDB = function(connection) {
 		connection.end();
-	}
+    }
 
 	this.insertPreData = function(conn, data) {
 		return new bpromise(function(resolve, reject) {

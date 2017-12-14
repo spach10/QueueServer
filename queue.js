@@ -1,7 +1,6 @@
 
 var express = require('express');
 var DBFunctions = require('./DBFunctions.js');
-// var amqp = require('amqplib/callback_api');
 require('dotenv').config();
 
 var DB = new DBFunctions();
@@ -38,9 +37,13 @@ router.route('/receive-work/')
 
 	    		//Our message must be a string
 	    		req.body[0].work.forEach(function (workItem) {
+	    			var workObject = {
+	    				id: result.insertId,
+						workItem: workItem
+					};
 	    			ch.assertQueue(queue, {durable: true});
-		    		ch.sendToQueue(queue, new Buffer(workItem), {persistent: true});
-		    		console.log(" [x] Sent '%s'", workItem);
+		    		ch.sendToQueue(queue, new Buffer(JSON.stringify(workObject)), {persistent: true});
+		    		console.log(" [x] Sent '%s'", JSON.stringify(workObject));
 	    		});
  			});
 	 	}).catch(function(error) {
@@ -50,20 +53,20 @@ router.route('/receive-work/')
         res.end('Data Inserted. ID=' );
     });
 
-router.route('/data/checkid/')
-
-	//get route to check for a uniq id on the data
-	.get(function(req, res){
-		var conn = DB.connectToDBpreprocess(env);
-        DB.checkDBForPreProcessData(conn, uniqID).then(function(result){
-        	conn.end();
-        	res.end(result);
-        }).catch(function(err){
-        	conn.end();
-        	res.end('There was an error with your request: ' + err);
-        });
-        	
-	});
+// router.route('/data/checkid/')
+//
+// 	//get route to check for a uniq id on the data
+// 	.get(function(req, res){
+// 		var conn = DB.connectToDBpreprocess(env);
+//         DB.checkDBForPreProcessData(conn, uniqID).then(function(result){
+//         	conn.end();
+//         	res.end(result);
+//         }).catch(function(err){
+//         	conn.end();
+//         	res.end('There was an error with your request: ' + err);
+//         });
+//
+// 	});
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
