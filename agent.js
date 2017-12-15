@@ -27,7 +27,7 @@ router.route('/receive_run_results/')
     // create a thing (accessed at POST http://localhost:8080/api/thing/create)
     .post(function(req, res) {
     	if (!req.body)
-            return res.sendStatus(400)
+            return res.sendStatus(400);
     });
 
 // REGISTER OUR ROUTES -------------------------------

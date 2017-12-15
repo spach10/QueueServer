@@ -29,6 +29,7 @@ router.route('/receive-work/')
         var dbConn = DB.connectToDB();
         DB.insertPreData(dbConn, req.body).then(function(result) {
         	dbConn.end();
+            res.end('Data Inserted. ID=' + result.insertId);
         	var open = require("amqplib").connect('amqp://' + process.env.mquser + ':' + process.env.mqpassword + '@' + process.env.host);
 	 		open.then(function(conn) {
  				return conn.createChannel();
@@ -50,7 +51,6 @@ router.route('/receive-work/')
 				dbConn.end();
 				res.end('Insert failed: ' + error);
 		});
-        res.end('Data Inserted. ID=' );
     });
 
 // router.route('/data/checkid/')
